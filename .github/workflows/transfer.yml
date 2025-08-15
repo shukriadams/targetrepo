@@ -1,0 +1,33 @@
+name: Sync Repos
+
+on:
+  push:
+    branches:
+      - main
+    #schedule:
+    #  - cron: '0 0 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+
+      - name: Sync from source repo
+        run: |
+          git config --global user.email "test@example.com"
+          git config --global user.name "sync_user"
+
+          # clone this repo
+          git https://github.com/shukriadams/targetrepo.git
+          cd targetrepo
+
+          # add source to pull from
+          git remote add srcRepo https://github.com/shukriadams/srcrepo.git
+          
+          # pull from src
+          git remote update
+          git merge srcRepo/master
+          git push origin master
