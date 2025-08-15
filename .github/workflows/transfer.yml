@@ -13,26 +13,16 @@ jobs:
 
     steps:
       - name: Checkout source repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Sync from source repo
         run: |
+
+          # NOTE : requires write permission for action.
+          # Settings > Action > General > Workflow permissions > read and write permissions
+
           git config --global user.email "test@example.com"
           git config --global user.name "sync_user"
-
-          # clone this repo
-          #git clone https://github.com/shukriadams/targetrepo.git
-          #cd targetrepo
-
-          # add source to pull from
-          #git remote add srcRepo https://github.com/shukriadams/srcrepo.git
-          
-          # pull from src
-          #git remote update
-          #git merge srcRepo/master --allow-unrelated-histories
-
-          #git push origin master
-
 
           git pull --unshallow  
           git remote add upstream https://github.com/shukriadams/srcrepo.git
@@ -41,3 +31,7 @@ jobs:
           git checkout master
           git merge --no-edit upstream/master --allow-unrelated-histories
           git push origin master
+
+          git checkout dev
+          git merge --no-edit upstream/dev --allow-unrelated-histories
+          git push origin dev
