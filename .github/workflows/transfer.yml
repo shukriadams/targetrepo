@@ -21,7 +21,7 @@ jobs:
           git config --global user.name "sync_user"
 
           # clone this repo
-          git clone https://github.com/shukriadams/targetrepo.git
+          git clone git@github.com:shukriadams/targetrepo.git
           cd targetrepo
 
           # add source to pull from
@@ -30,4 +30,5 @@ jobs:
           # pull from src
           git remote update
           git merge srcRepo/master --allow-unrelated-histories
+
           git push origin master
