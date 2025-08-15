@@ -29,5 +29,5 @@ jobs:
           
           # pull from src
           git remote update
-          git merge srcRepo/master
+          git merge srcRepo/master --allow-unrelated-histories
           git push origin master
